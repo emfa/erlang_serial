@@ -4,9 +4,13 @@ This is a port program with erlang driver for serial communication,
 originally written by Johan Bevemyr in 1996 and sporadically
 maintained by Tony Garnock-Jones from 2007 onwards.
 
+Minor changes in 2013 by Garth Hitchens to make it a proper erlang app (for
+inclusion as a dependency in mix projects), avoid compile warnings and
+move the terminal.erl file to the attic directory (to avoid gs dependency).
+
 ## Example
 
-See `src/terminal.erl`.
+See `attic/terminal.erl`.
 
 ## License
 

@@ -33,9 +33,10 @@
 -include("serial.hrl").
 
 priv_dir() ->
-    case code:priv_dir(serial) of
+    case code:priv_dir(?MODULE) of
 	{error, bad_name} ->
-	    "./priv";
+	    filename:dirname(filename:dirname(code:which(?MODULE))) ++ "/priv";
+	    % find priv dir relative to module name (was "./priv";)
 	D ->
 	    D
     end.

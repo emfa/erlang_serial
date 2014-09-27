@@ -49,15 +49,6 @@ BEAM_FILES = $(patsubst src/%.erl, ebin/%.beam, $(ERL_FILES))
 
 all: ebin/erlang-serial.app priv/bin/serial $(BEAM_FILES)
 
-install: all
-	@[ -n "$(DESTDIR)" ] || (echo "Set DESTDIR before running the install target."; false)
-	install -d $(FULL_INSTALL_DIR)/ebin
-	install -d $(FULL_INSTALL_DIR)/priv/bin
-	install -d $(FULL_INSTALL_DIR)/src
-	install -m 644 ebin/* $(FULL_INSTALL_DIR)/ebin
-	install -m 755 priv/bin/* $(FULL_INSTALL_DIR)/priv/bin
-	install -m 644 src/* $(FULL_INSTALL_DIR)/src
-
 ebin/erlang-serial.app: ebin
 	cp src/erlang-serial.app.src ebin/erlang-serial.app
 
@@ -75,9 +66,6 @@ priv/bin/serial: $(OBJECT_FILES) priv/bin
 	$(CC) -o $@ $(LDFLAGS) $(OBJECT_FILES) $(LDLIBS)
 
 clean:
-	rm -f priv/bin/serial $(OBJECT_FILES) $(BEAM_FILES)
+	rm -f priv/bin/serial $(OBJECT_FILES) $(BEAM_FILES) ebin/erlang-serial.app
 
 serial.o: serial.c serial.h
-
-echo-version:
-	@echo $(VSN)
