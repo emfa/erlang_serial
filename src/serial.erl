@@ -56,7 +56,7 @@ process_options(Pid,[Opt|Opts]) ->
 
 init(Pid) ->
     process_flag(trap_exit,true),
-    Port = open_port({spawn,priv_dir()++"/bin/serial -erlang"},[binary,{packet,2}]),
+    Port = open_port({spawn,priv_dir()++"/erlang-serial_drv.so -erlang"},[binary,{packet,2}]),
     loop(Pid,Port).
 
 loop(Pid,Port) ->
