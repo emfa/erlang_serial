@@ -8,10 +8,6 @@ Minor changes in 2013 by Garth Hitchens to make it a proper erlang app (for
 inclusion as a dependency in mix projects), avoid compile warnings and
 move the terminal.erl file to the attic directory (to avoid gs dependency).
 
-## Example
-
-See `attic/terminal.erl`.
-
 ## License
 
 Copyright (c) 1996, 1999 Johan Bevemyr  

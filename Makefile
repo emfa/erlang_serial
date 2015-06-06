@@ -23,49 +23,11 @@
 #  Author:	 Johan Bevemyr
 #  Created:	 Fri Oct 18 09:59:34 1996
 
-VSN = 1.1
-INSTALL_DIR=serial-$(VSN)
-FULL_INSTALL_DIR=$(DESTDIR)/erlang/lib/$(INSTALL_DIR)
+PROJECT = erlang_serial
 
-WARNING_OPTIONS =
-LANGUAGE_OPTIONS = 
-COMPILER_OPTIONS = -g 
+C_SRC_OUTPUT = priv/serial
+C_SRC_TYPE = static
 
-CFLAGS   = $(WARNING_OPTIONS) $(LANGUAGE_OPTIONS) $(COMPILER_OPTIONS)
+CFLAGS += -I $(CURDIR)/c_src/
 
-######################################################################
-
-HEADER_FILES = c_src/serial.h
-SOURCE_FILES = c_src/serial.c
-
-OBJECT_FILES = $(SOURCE_FILES:.c=.o)
-
-######################################################################
-
-ERL_FILES = $(wildcard src/*.erl)
-BEAM_FILES = $(patsubst src/%.erl, ebin/%.beam, $(ERL_FILES))
-
-######################################################################
-
-all: ebin/erlang-serial.app priv/bin/serial $(BEAM_FILES)
-
-ebin/erlang-serial.app: ebin
-	cp src/erlang-serial.app.src ebin/erlang-serial.app
-
-ebin/%.beam: src/%.erl ebin
-	erlc -o ebin $<
-
-ebin:
-	mkdir -p ebin
-
-priv/bin:
-	mkdir -p priv/bin
-
-priv/bin/serial: $(OBJECT_FILES) priv/bin
-	mkdir -p priv/bin
-	$(CC) -o $@ $(LDFLAGS) $(OBJECT_FILES) $(LDLIBS)
-
-clean:
-	rm -f priv/bin/serial $(OBJECT_FILES) $(BEAM_FILES) ebin/erlang-serial.app
-
-serial.o: serial.c serial.h
+include erlang.mk
